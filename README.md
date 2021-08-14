@@ -1,24 +1,17 @@
 # math
 
-## Project setup
-```
-npm install
-```
+## Данные
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- Как массив
 
-### Compiles and minifies for production
-```
-npm run build
-```
+    [1,2,3,4,5]  
 
-### Lints and fixes files
-```
-npm run lint
-```
+- Как генератор
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+  (y,x,t) => x+y
+
+где x и y - координаты точек, t - зависимость от времени
+
+## Отображение
+
+Подстраивается под область значений

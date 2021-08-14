@@ -1,4 +1,8 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import Root from './App.vue'
+import VueChartkick from 'vue-chartkick'
+import 'chartkick/chart.js'
 
-createApp(App).mount('#app')
+const app = createApp(Root)
+app.use(VueChartkick)
+app.mount('#app')
