@@ -4,8 +4,8 @@
         height="300px"
         :data="data"
         label="y"
-        :min="-2"
-        :max="2"
+        :min="min"
+        :max="max"
     />
 <!--    xtitle="x"-->
 <!--    ytitle="y"-->
@@ -18,7 +18,9 @@
 export default {
   name: 'Plane',
   props: {
-    data: Object
+    data: Object,
+    min: Number,
+    max: Number,
   }
 }
 </script>
