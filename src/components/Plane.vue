@@ -1,7 +1,7 @@
 <template>
     <line-chart
         width="100%"
-        height="300px"
+        height="700px"
         :data="data"
         label="y"
         :min="min"

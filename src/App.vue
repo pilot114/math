@@ -1,22 +1,23 @@
 <template>
-    <div>
-        <Plane
-            :data="data"
-            :min="yMin < yMax ? Number(yMin) : null"
-            :max="yMax > yMin ? Number(yMax) : null"
-        />
-    </div>
-    <button @click="isStopped = !isStopped">
-        {{ isStopped ? '⏵' : '⏸' }}
-    </button>
-    <button @click="save">save</button>
     <div class="row">
+        <div class="column">
+            <div>
+                <Plane
+                    :data="data"
+                    :min="yMin < yMax ? Number(yMin) : null"
+                    :max="yMax > yMin ? Number(yMax) : null"
+                />
+            </div>
+            <button @click="isStopped = !isStopped">
+                {{ isStopped ? '⏵' : '⏸' }}
+            </button>
+            <button @click="save">save</button>
+        </div>
+
         <div class="column">
             <h3>настройки</h3>
             <input v-model="yMin" type="number" placeholder="yMin">
             <input v-model="yMax" type="number" placeholder="yMax">
-        </div>
-        <div class="column">
             <h3>функции</h3>
             <small><a href="https://mathjs.org/docs/index.html" target="_blank">math.js</a></small>
             <div v-for="(f, i) in fns" :key="i">
@@ -42,6 +43,7 @@ export default {
     components: {
         Plane
     },
+    // TODO: вынести настрйоки области определения (start + step + count)
     created() {
         this.load();
 
@@ -126,6 +128,9 @@ export default {
                 ['0.5x - 5', 20, 'linear'],
                 ['0.2x^2 - 2x - 4', 20, 'quadro'],
                 ['e^x', 20, 'exp'],
+
+                // 1/n sin(nx + t) - пилообразный волномикс
+                // 1/n sin(nx + t) - гле n - четные -> прямоугольный волномикс
             ]
             if (data) {
                 this.fns = data[0] || this.fns
