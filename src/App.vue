@@ -3,6 +3,20 @@
         <!-- Верхняя панель -->
         <div class="top-bar">
             <h1>Math Visualizer</h1>
+            <div class="mode-selector">
+                <button
+                    @click="currentMode = 'functions'"
+                    :class="['mode-btn', { active: currentMode === 'functions' }]"
+                >
+                    📈 Графики функций
+                </button>
+                <button
+                    @click="currentMode = 'school'"
+                    :class="['mode-btn', { active: currentMode === 'school' }]"
+                >
+                    🎓 Школьная математика
+                </button>
+            </div>
             <div class="top-bar-actions">
                 <button @click="toggleTheme" class="icon-btn" title="Переключить тему">
                     {{ isDarkTheme ? '☀️' : '🌙' }}
@@ -10,22 +24,26 @@
                 <button @click="toggleFullscreen" class="icon-btn" title="Полноэкранный режим">
                     {{ isFullscreen ? '⊡' : '⊞' }}
                 </button>
-                <button @click="exportChart('png')" class="icon-btn" title="Экспорт PNG">
+                <button v-if="currentMode === 'functions'" @click="exportChart('png')" class="icon-btn" title="Экспорт PNG">
                     📥 PNG
                 </button>
-                <button @click="exportChart('svg')" class="icon-btn" title="Экспорт SVG">
+                <button v-if="currentMode === 'functions'" @click="exportChart('svg')" class="icon-btn" title="Экспорт SVG">
                     📥 SVG
                 </button>
-                <button @click="undo" :disabled="historyIndex <= 0" class="icon-btn" title="Отменить">
+                <button v-if="currentMode === 'functions'" @click="undo" :disabled="historyIndex <= 0" class="icon-btn" title="Отменить">
                     ↶
                 </button>
-                <button @click="redo" :disabled="historyIndex >= history.length - 1" class="icon-btn" title="Вернуть">
+                <button v-if="currentMode === 'functions'" @click="redo" :disabled="historyIndex >= history.length - 1" class="icon-btn" title="Вернуть">
                     ↷
                 </button>
             </div>
         </div>
 
-        <div class="main-content">
+        <!-- Режим школьной математики -->
+        <SchoolMath v-if="currentMode === 'school'" />
+
+        <!-- Режим графиков функций -->
+        <div v-else class="main-content">
             <!-- Панель графика -->
             <div class="chart-panel">
                 <div ref="chartContainer" class="chart-container">
@@ -213,6 +231,7 @@
 <script>
 import Plane from "./components/Plane";
 import FunctionGallery from "./components/FunctionGallery";
+import SchoolMath from "./components/SchoolMath";
 import { evaluate, derivative } from 'mathjs';
 import { defaultColors } from './utils/functionExamples';
 import {
@@ -232,7 +251,8 @@ export default {
     name: 'App',
     components: {
         Plane,
-        FunctionGallery
+        FunctionGallery,
+        SchoolMath
     },
     created() {
         this.load();
@@ -263,6 +283,7 @@ export default {
     },
     data() {
         return {
+            currentMode: 'functions',
             fns: [],
             yMin: null,
             yMax: null,
@@ -701,12 +722,42 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 .top-bar h1 {
     margin: 0;
     font-size: 24px;
     color: var(--text-color);
+}
+
+.mode-selector {
+    display: flex;
+    gap: 5px;
+    flex: 1;
+    justify-content: center;
+}
+
+.mode-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.mode-btn:hover {
+    background: var(--button-hover);
+    color: white;
+}
+
+.mode-btn.active {
+    background: var(--button-bg);
+    color: white;
 }
 
 .top-bar-actions {
