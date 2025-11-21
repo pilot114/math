@@ -16,6 +16,12 @@
                 >
                     🎓 Школьная математика
                 </button>
+                <button
+                    @click="currentMode = 'geometry'"
+                    :class="['mode-btn', { active: currentMode === 'geometry' }]"
+                >
+                    📐 Геометрия
+                </button>
             </div>
             <div class="top-bar-actions">
                 <button @click="toggleTheme" class="icon-btn" title="Переключить тему">
@@ -41,6 +47,9 @@
 
         <!-- Режим школьной математики -->
         <SchoolMath v-if="currentMode === 'school'" />
+
+        <!-- Режим геометрии -->
+        <Geometry v-if="currentMode === 'geometry'" />
 
         <!-- Режим графиков функций -->
         <div v-else class="main-content">
@@ -232,6 +241,7 @@
 import Plane from "./components/Plane";
 import FunctionGallery from "./components/FunctionGallery";
 import SchoolMath from "./components/SchoolMath";
+import Geometry from "./components/Geometry";
 import { evaluate, derivative } from 'mathjs';
 import { defaultColors } from './utils/functionExamples';
 import {
@@ -252,7 +262,8 @@ export default {
     components: {
         Plane,
         FunctionGallery,
-        SchoolMath
+        SchoolMath,
+        Geometry
     },
     created() {
         this.load();
