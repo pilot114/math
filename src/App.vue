@@ -20,7 +20,13 @@
                     @click="currentMode = 'geometry'"
                     :class="['mode-btn', { active: currentMode === 'geometry' }]"
                 >
-                    📐 Геометрия
+                    📐 Геометрия (2D)
+                </button>
+                <button
+                    @click="currentMode = 'stereometry'"
+                    :class="['mode-btn', { active: currentMode === 'stereometry' }]"
+                >
+                    🧊 Стереометрия (3D)
                 </button>
             </div>
             <div class="top-bar-actions">
@@ -50,6 +56,9 @@
 
         <!-- Режим геометрии -->
         <Geometry v-if="currentMode === 'geometry'" />
+
+        <!-- Режим стереометрии -->
+        <Stereometry v-if="currentMode === 'stereometry'" />
 
         <!-- Режим графиков функций -->
         <div v-else class="main-content">
@@ -242,6 +251,7 @@ import Plane from "./components/Plane";
 import FunctionGallery from "./components/FunctionGallery";
 import SchoolMath from "./components/SchoolMath";
 import Geometry from "./components/Geometry";
+import Stereometry from "./components/Stereometry";
 import { evaluate, derivative } from 'mathjs';
 import { defaultColors } from './utils/functionExamples';
 import {
@@ -263,7 +273,8 @@ export default {
         Plane,
         FunctionGallery,
         SchoolMath,
-        Geometry
+        Geometry,
+        Stereometry
     },
     created() {
         this.load();
