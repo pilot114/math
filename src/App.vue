@@ -34,6 +34,12 @@
                 >
                     📐 Тригонометрия
                 </button>
+                <button
+                    @click="currentMode = 'functionsGraphs'"
+                    :class="['mode-btn', { active: currentMode === 'functionsGraphs' }]"
+                >
+                    📊 Функции и графики
+                </button>
             </div>
             <div class="top-bar-actions">
                 <button @click="toggleTheme" class="icon-btn" title="Переключить тему">
@@ -68,6 +74,9 @@
 
         <!-- Режим тригонометрии -->
         <Trigonometry v-if="currentMode === 'trigonometry'" />
+
+        <!-- Режим функций и графиков -->
+        <FunctionsGraphs v-if="currentMode === 'functionsGraphs'" />
 
         <!-- Режим графиков функций -->
         <div v-else-if="currentMode === 'functions'" class="main-content">
@@ -262,6 +271,7 @@ import SchoolMath from "./components/SchoolMath";
 import Geometry from "./components/Geometry";
 import Stereometry from "./components/Stereometry";
 import Trigonometry from "./components/Trigonometry";
+import FunctionsGraphs from "./components/FunctionsGraphs";
 import { evaluate, derivative } from 'mathjs';
 import { defaultColors } from './utils/functionExamples';
 import {
@@ -285,7 +295,8 @@ export default {
         SchoolMath,
         Geometry,
         Stereometry,
-        Trigonometry
+        Trigonometry,
+        FunctionsGraphs
     },
     created() {
         this.load();
