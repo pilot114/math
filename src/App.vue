@@ -40,6 +40,12 @@
                 >
                     📊 Функции и графики
                 </button>
+                <button
+                    @click="currentMode = 'combinatoricsStats'"
+                    :class="['mode-btn', { active: currentMode === 'combinatoricsStats' }]"
+                >
+                    🎲 Комбинаторика и статистика
+                </button>
             </div>
             <div class="top-bar-actions">
                 <button @click="toggleTheme" class="icon-btn" title="Переключить тему">
@@ -77,6 +83,9 @@
 
         <!-- Режим функций и графиков -->
         <FunctionsGraphs v-if="currentMode === 'functionsGraphs'" />
+
+        <!-- Режим комбинаторики и статистики -->
+        <CombinatoricsStats v-if="currentMode === 'combinatoricsStats'" />
 
         <!-- Режим графиков функций -->
         <div v-else-if="currentMode === 'functions'" class="main-content">
@@ -272,6 +281,7 @@ import Geometry from "./components/Geometry";
 import Stereometry from "./components/Stereometry";
 import Trigonometry from "./components/Trigonometry";
 import FunctionsGraphs from "./components/FunctionsGraphs";
+import CombinatoricsStats from "./components/CombinatoricsStats";
 import { evaluate, derivative } from 'mathjs';
 import { defaultColors } from './utils/functionExamples';
 import {
@@ -296,7 +306,8 @@ export default {
         Geometry,
         Stereometry,
         Trigonometry,
-        FunctionsGraphs
+        FunctionsGraphs,
+        CombinatoricsStats
     },
     created() {
         this.load();
