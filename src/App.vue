@@ -28,6 +28,12 @@
                 >
                     🧊 Стереометрия (3D)
                 </button>
+                <button
+                    @click="currentMode = 'trigonometry'"
+                    :class="['mode-btn', { active: currentMode === 'trigonometry' }]"
+                >
+                    📐 Тригонометрия
+                </button>
             </div>
             <div class="top-bar-actions">
                 <button @click="toggleTheme" class="icon-btn" title="Переключить тему">
@@ -60,8 +66,11 @@
         <!-- Режим стереометрии -->
         <Stereometry v-if="currentMode === 'stereometry'" />
 
+        <!-- Режим тригонометрии -->
+        <Trigonometry v-if="currentMode === 'trigonometry'" />
+
         <!-- Режим графиков функций -->
-        <div v-else class="main-content">
+        <div v-else-if="currentMode === 'functions'" class="main-content">
             <!-- Панель графика -->
             <div class="chart-panel">
                 <div ref="chartContainer" class="chart-container">
@@ -252,6 +261,7 @@ import FunctionGallery from "./components/FunctionGallery";
 import SchoolMath from "./components/SchoolMath";
 import Geometry from "./components/Geometry";
 import Stereometry from "./components/Stereometry";
+import Trigonometry from "./components/Trigonometry";
 import { evaluate, derivative } from 'mathjs';
 import { defaultColors } from './utils/functionExamples';
 import {
@@ -274,7 +284,8 @@ export default {
         FunctionGallery,
         SchoolMath,
         Geometry,
-        Stereometry
+        Stereometry,
+        Trigonometry
     },
     created() {
         this.load();
